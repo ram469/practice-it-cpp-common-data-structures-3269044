@@ -1,13 +1,19 @@
 #include <iostream>
 using namespace std;
 
-int calculateSum(const int arr[], size_t size)
+template <size_t N>
+int calculateSum(const int (&arr)[N])
 {
-    //...TODO: implement
+    int sum = 0;
+    for (int value : arr)
+    {
+        sum += value;
+    }
+    return sum;
 }
 
 int main()
 {
     const int ints[]{1, -7, 17};
-    cout << "The sum of all elements in the array is " << calculateSum(ints, 3) << endl;
+    cout << "The sum of all elements in the array is " << calculateSum(ints) << endl;
 }
