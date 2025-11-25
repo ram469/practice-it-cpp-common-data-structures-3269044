@@ -3,12 +3,24 @@
 #include <iostream>
 using namespace std;
 
-void visitSite(const string &url, stack<string> &history)
+class BrowserHistory
+{
+
+private:
+    stack<string> history;
+
+public:
+    void visit(const string url);
+    void back();
+    void current();
+};
+
+void BrowserHistory::visit(const string url)
 {
     history.push(url);
 }
 
-void back(stack<string> &history)
+void BrowserHistory::back()
 {
     if (!history.empty())
     {
@@ -16,7 +28,7 @@ void back(stack<string> &history)
     }
 }
 
-void current(const stack<string> &history)
+void BrowserHistory::current()
 {
     if (!history.empty())
     {
@@ -26,22 +38,22 @@ void current(const stack<string> &history)
 
 int main()
 {
-    stack<string> history;
 
-    visitSite("example.com", history);
-    visitSite("openai.com", history);
-    visitSite("github.com", history);
+    BrowserHistory history;
+    history.visit("example.com");
+    history.visit("openai.com");
+    history.visit("github.com");
 
-    current(history); // Should print "github.com"
+    history.current(); // Should print "github.com"
 
-    back(history);
-    current(history); // Should print "openai.com"
+    history.back();
+    history.current(); // Should print "openai.com"
 
-    back(history);
-    current(history); // Should print "example.com"
+    history.back();
+    history.current(); // Should print "example.com"
 
-    back(history);
-    current(history); // Should not print anything
+    history.back();
+    history.current(); // Should not print anything
 
     return 0;
 }
