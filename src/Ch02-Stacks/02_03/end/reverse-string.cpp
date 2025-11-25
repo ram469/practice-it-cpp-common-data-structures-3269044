@@ -6,29 +6,27 @@ using namespace std;
 
 string reverseString(const string &input)
 {
-    stack<char> charStack;
+    stack<char> reverseStr;
+    string reversed = input;
 
-    // Push all characters of the string to the stack
-    for (char c : input)
+    for (char ch : input)
     {
-        charStack.push(c);
+        reverseStr.push(ch);
     }
 
-    string reversedString;
-
-    // Pop all characters from the stack and append them to the reversed string
-    while (!charStack.empty())
+    for (size_t i = 0; i < input.length(); i++)
     {
-        reversedString += charStack.top();
-        charStack.pop();
+        char ch = reverseStr.top();
+        reverseStr.pop();
+        reversed[i] = ch;
     }
 
-    return reversedString;
+    return reversed;
 }
 
 int main()
 {
-    string str = "Hello, World!";
+    string str = "I am here!";
     string revStr = reverseString(str);
 
     cout << reverseString("Hello, World!") << endl;

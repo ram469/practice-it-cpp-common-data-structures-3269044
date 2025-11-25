@@ -1,61 +1,47 @@
-#include <iostream>
-#include <stack>
 #include <string>
-
+#include <stack>
+#include <iostream>
 using namespace std;
 
-class BrowserHistory
+void visitSite(const string &url, stack<string> &history)
 {
-private:
-    stack<string> history;
+    history.push(url);
+}
 
-public:
-    // Visiting a website
-    void visit(const string &url)
+void back(stack<string> &history)
+{
+    if (!history.empty())
     {
-        cout << "Visiting: " << url << endl;
-        history.push(url);
+        history.pop();
     }
+}
 
-    // Clicking the back button
-    void back()
+void current(const stack<string> &history)
+{
+    if (!history.empty())
     {
-        cout << "Navigating back" << endl;
-        if (!history.empty())
-        {
-            history.pop();
-        }
+        cout << history.top() << endl;
     }
-
-    // Checking the current site
-    string current() const
-    {
-        if (history.empty())
-        {
-            return "No sites currently being viewed.";
-        }
-        return history.top();
-    }
-};
+}
 
 int main()
 {
-    BrowserHistory bh;
+    stack<string> history;
 
-    bh.visit("explorecalifornia.org");
-    bh.visit("pixelford.com");
-    bh.visit("landonhotel.com");
+    visitSite("example.com", history);
+    visitSite("openai.com", history);
+    visitSite("github.com", history);
 
-    cout << "Current Site: " << bh.current() << endl;
+    current(history); // Should print "github.com"
 
-    bh.back();
-    cout << "Current Site: " << bh.current() << endl;
+    back(history);
+    current(history); // Should print "openai.com"
 
-    bh.back();
-    cout << "Current Site: " << bh.current() << endl;
+    back(history);
+    current(history); // Should print "example.com"
 
-    bh.back();
-    cout << "Current Site: " << bh.current() << endl;
+    back(history);
+    current(history); // Should not print anything
 
     return 0;
 }
